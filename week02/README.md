@@ -1,1 +1,1 @@
-![week02_output](week02_output.jpg)
+![week02_output](week02_output.png)
