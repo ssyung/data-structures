@@ -10,6 +10,7 @@
   "author": "",
   "dependencies": {
     "async": "~0.2.8",
+    "cheerio": "^1.0.0-rc.2",
     "request": "^2.81.0"
   },
   "license": "ISC"

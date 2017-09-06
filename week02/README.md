@@ -1,0 +1,1 @@
+![week02_output](week02_output.jpg)
