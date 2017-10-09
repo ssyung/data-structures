@@ -53,7 +53,7 @@ async.eachSeries(addressesArray, function(value, callback) {
         thisMeeting.latLong = JSON.parse(body).results[0].geometry.location;
         meetingsData.push(thisMeeting);
     });
-    setTimeout(callback, 500);
+    setTimeout(callback, 2000);
 }, function() {
     console.log(meetingsData);
     

@@ -1,0 +1,19 @@
+[
+    {
+        "_id": "59dbc3a8877d8f9003dc3606",
+        "locationName": "",
+        "meetingName": "MUSTARD SEED - Mustard Seed     (:I)",
+        "accessible": "",
+        "address": "122 East 37th Street 10016",
+        "meetings": {
+            "day": "Tuesday",
+            "start": "20:00",
+            "end": "21:00",
+            "type": "C = Closed Discussion meeting"
+        },
+        "geolocation": {
+            "lat": 40.748323,
+            "lng": -73.97884499999999
+        }
+    }
+]

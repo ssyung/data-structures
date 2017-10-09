@@ -9,9 +9,13 @@
   },
   "author": "",
   "dependencies": {
-    "async": "~0.2.8",
+    "async": "^0.2.10",
     "cheerio": "^1.0.0-rc.2",
-    "request": "^2.81.0"
+    "moment": "^2.18.1",
+    "mongo": "^0.1.0",
+    "mongodb": "^2.2.31",
+    "qs": "^6.5.1",
+    "request": "^2.82.0"
   },
   "license": "ISC"
 }
