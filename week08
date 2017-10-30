@@ -4,9 +4,9 @@ I placed my photon device with temperature and light sensor in our refrigerator 
 
 Part 2. SQL code
 
-CREATE TABLE fridge_lighttemp (
-light integer,
+CREATE TABLE fridge_phototemp (
+photo integer,
 temperature decimal, 
 fridgeTime timestamp DEFAULT current_timestamp);
 
-INSERT INTO fridge_lighttemp VALUES (29, 8.989011, DEFAULT);
+INSERT INTO fridge_phototemp VALUES (29, 8.989011, DEFAULT);
