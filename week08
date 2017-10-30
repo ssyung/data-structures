@@ -1,0 +1,12 @@
+Part 1. Data Model
+
+I placed my photon device with temperature and light sensor in our refrigerator to track the frequency/duration of door openings (light on) and loss/recovery of temperature. I plan to record data every second, in order to capture all door opening occurrences (knowing I will have a lot of data just showing the fridge door closed, steady temperature). I’m interested in tracking frequency of door openings (during the day, during dinner prep, late night snacks!) as well as seeing loss/recovery of temperature based off of duration of door being left open.
+
+Part 2. SQL code
+
+CREATE TABLE fridge_lighttemp (
+light integer,
+temperature decimal, 
+fridgeTime timestamp DEFAULT current_timestamp);
+
+INSERT INTO fridge_lighttemp VALUES (29, 8.989011, DEFAULT);
