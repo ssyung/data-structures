@@ -19,7 +19,7 @@ app.get('/', function(req, res) {
             photo, temperature
             FROM fridge_readings
             WHERE photo > 100
-            ORDER BY fridgetime;`;
+            ORDER BY fridgetime DESC;`;
              
     client.connect();
     client.query(q, (qerr, qres) => {
