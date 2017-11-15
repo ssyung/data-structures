@@ -15,11 +15,11 @@ app.get('/', function(req, res) {
     const client = new Pool(db_credentials);
 
     // SQL query
-    var q = `SELECT fridgetime AT TIME ZONE 'EST' AS fridgetime
+    var q = `SELECT ((fridgetime AT TIME ZONE 'UTC') AT TIME ZONE 'EST') AS local_fridgetime
             photo, temperature
             FROM fridge_readings
             WHERE photo > 100
-            ORDER BY fridgetime DESC;`;
+            ORDER BY local_fridgetime DESC;`;
              
     client.connect();
     client.query(q, (qerr, qres) => {
