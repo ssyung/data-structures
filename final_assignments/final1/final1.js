@@ -20,6 +20,10 @@ function getEntriesData(rawData) {
         
         // create empty object to store record
         var entry = {};
+        
+        // create var to store details
+        entry.details = $(elem).find('div.detailsBox').text().trim();
+        
         // create var to store first td style
         var td1 = $(elem).find('td[style="border-bottom:1px solid #e3e3e3; width:260px"]');
         
