@@ -13,8 +13,8 @@ db_credentials.port = 5432;
 app.get('/', function(req, res) {
     // Connect to the AWS RDS Postgres database
     const client = new Pool(db_credentials);
-
     // SQL query
+/*
     var q = `SELECT EXTRACT(DAY FROM fridge_readings AT TIME ZONE 'America/New_York') as sensorday, 
              EXTRACT(MONTH FROM fridge_readings AT TIME ZONE 'America/New_York') as sensormonth, 
              count(*) as num_obs, 
@@ -24,11 +24,19 @@ app.get('/', function(req, res) {
              min(tempsensor) as min_temp
              FROM fridge_readings 
              GROUP BY sensormonth, sensorday;`;
-             
+*/             
+    var q = `SELECT fridgetime AT TIME ZONE 'EST' AS fridgetime,
+             photo, temperature
+             FROM fridge_readings
+             WHERE photo > 100
+             ORDER BY fridgetime DESC;`;
     client.connect();
     client.query(q, (qerr, qres) => {
-        res.send(qres.rows);
-        console.log('responded to request');
+        if (qerr) console.log(qerr);
+        else {
+          res.send(qres.rows);
+          console.log('responded to request');
+       }
     });
     client.end();
 });
