@@ -13,13 +13,12 @@ db_credentials.port = 5432;
 app.get('/', function(req, res) {
     // Connect to the AWS RDS Postgres database
     const client = new Pool(db_credentials);
-
     // SQL query
-    var q = `SELECT ((fridgetime AT TIME ZONE 'UTC') AT TIME ZONE 'EST') AS local_fridgetime
+    var q = `SELECT fridgetime AT TIME ZONE 'EST' AS fridgetime,
             photo, temperature
             FROM fridge_readings
             WHERE photo > 100
-            ORDER BY local_fridgetime DESC;`;
+            ORDER BY fridgetime DESC;`;
              
     client.connect();
     client.query(q, (qerr, qres) => {
