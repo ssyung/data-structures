@@ -18,8 +18,8 @@ var url = 'mongodb://localhost:27017/AAmeetings';
 // process.env.ATLAS;
 
 // HTML wrappers for AA data
-//var index1 = fs.readFileSync("index1.txt");
-//var index3 = fs.readFileSync("index3.txt");
+var index1 = fs.readFileSync("index1.txt");
+var index3 = fs.readFileSync("index3.txt");
 
 app.get('/', function(req, res) {
     // Connect to the AWS RDS Postgres database
@@ -123,9 +123,9 @@ app.get('/aa', function(req, res) {
             
             else {
                 res.writeHead(200, {'content-type': 'text/json'});
-                // res.write(index1);
-                res.end(JSON.stringify(docs));
-                // res.end(index3);
+                res.write(index1);
+                res.write(JSON.stringify(docs));
+                res.end(index3);
             }
             db.close();
         });
