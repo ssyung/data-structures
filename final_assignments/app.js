@@ -52,14 +52,14 @@ app.get('/aa', function(req, res) {
             'Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'
             ];
         var dateTimeNow = new Date();
-        var todayNum = 2; // dateTimeNow.getDay();
+        var todayNum = dateTimeNow.getDay();
         var today = numToDay[todayNum];
         var tomorrow;
         if (todayNum == 6) {tomorrow = 0;}
         else {tomorrow = todayNum + 1}
         tomorrow = numToDay[tomorrow];
         // ----------------------------------
-        var hour = 19; // dateTimeNow.getHours();
+        var hour = dateTimeNow.getHours();
         var hourStart;
         var hourEnd;
         if (hour > 9) {
@@ -122,7 +122,7 @@ app.get('/aa', function(req, res) {
             if (err) {console.log(err)}
             
             else {
-                res.writeHead(200, {'content-type': 'text/json'});
+                res.writeHead(200, {'content-type': 'text/html'});
                 res.write(index1);
                 res.write(JSON.stringify(docs));
                 res.end(index3);
