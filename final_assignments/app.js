@@ -113,7 +113,7 @@ app.get('/aa', function(req, res) {
                   _id: { geolocation : "$_id.geolocation" },
                   meetingGroups: { $push : {
                     groupInfo : "$_id",
-                    meetingDay : "$meeting.day",
+                    meetingDay : "$meetings.day",
                     meetingStartTime : "$meetings.start",
                     meetingType : "$meetings.type"
                   }}
