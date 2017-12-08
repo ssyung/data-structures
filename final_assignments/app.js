@@ -1,7 +1,6 @@
 var express = require('express'),
     app = express();
 var fs = require('fs');
-var moment = require('moment'); // npm install moment-timezone
 
 // Postgres
 const { Pool } = require('pg');
@@ -15,11 +14,12 @@ db_credentials.port = 5432;
 // Mongo
 var collName = 'meetings';
 var MongoClient = require('mongodb').MongoClient;
-var url = process.env.ATLAS;
+var url = 'mongodb://localhost:27017/AAmeetings';
+// process.env.ATLAS;
 
 // HTML wrappers for AA data
-var index1 = fs.readFileSync("index1.txt");
-var index3 = fs.readFileSync("index3.txt");
+//var index1 = fs.readFileSync("index1.txt");
+//var index3 = fs.readFileSync("index3.txt");
 
 app.get('/', function(req, res) {
     // Connect to the AWS RDS Postgres database
@@ -52,14 +52,14 @@ app.get('/aa', function(req, res) {
             'Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'
             ];
         var dateTimeNow = new Date();
-        var todayNum = dateTimeNow.getDay();
+        var todayNum = 2; // dateTimeNow.getDay();
         var today = numToDay[todayNum];
         var tomorrow;
         if (todayNum == 6) {tomorrow = 0;}
         else {tomorrow = todayNum + 1}
         tomorrow = numToDay[tomorrow];
         // ----------------------------------
-        var hour = dateTimeNow.getHours();
+        var hour = 19; // dateTimeNow.getHours();
         var hourStart;
         var hourEnd;
         if (hour > 9) {
@@ -126,7 +126,7 @@ app.get('/aa', function(req, res) {
             else {
                 res.writeHead(200, {'content-type': 'text/json'});
                 // res.write(index1);
-                res.write(JSON.stringify(docs));
+                res.end(JSON.stringify(docs));
                 // res.end(index3);
             }
             db.close();
@@ -136,6 +136,6 @@ app.get('/aa', function(req, res) {
 });
 
 // app.listen(process.env.PORT, function() {
-app.listen(3000, function() {
+app.listen(3001, function() {
     console.log('Server listening...');
 });
