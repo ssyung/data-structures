@@ -111,7 +111,7 @@ app.get('/aa', function(req, res) {
             // group by latlong  
             { $group: {
                   _id: { geolocation : "$_id.geolocation" },
-                  meetings: { $push : {
+                  meetingGroups: { $push : {
                     groupInfo : "$_id",
                     meetingDay : "$meeting.day",
                     meetingStartTime : "$meetings.start",
