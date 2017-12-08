@@ -92,7 +92,7 @@ app.get('/aa', function(req, res) {
                         { "meetings.day" : today } , { "meetings.start" : { $gte: hourStart } }
                     ]},
                     { $and: [
-                        { "meetings.day" : today } , { "meetings.start" : { $lte: hourEnd } }
+                        { "meetings.day" : today } , { "meetings.end" : { $lte: hourEnd } }
                     ]}
                 ]}
             }
