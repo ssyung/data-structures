@@ -10,9 +10,8 @@
             } 
                 contentHolder = contentHolder + '<h1 id="firstHeading" class="firstHeading">';
                 contentHolder = contentHolder + cont.meetingGroups[i].groupInfo.meetingName + '</h1>';
-                contentHolder = contentHolder + '<h3>' + cont.meetingGroups[i].meetingDay[0] + ' Meetings</h3>';
-
                 for (var j = 0; j < cont.meetingGroups[i].meetingType.length; j++) {
+/*
                     var mt, si;
                     if (cont.meetingGroups[i].meetingType[j] == "BB") {
                         mt = "Big Book ";
@@ -38,8 +37,8 @@
                     else {
                         mt = "";
                     }
-
-                    contentHolder = contentHolder + cont.meetingGroups[i].meetingStartTime[j] + ' ' + mt + '<br>';
+*/
+                    contentHolder = contentHolder + cont.meetingGroups[i].meetingDay[j] + ' ' + cont.meetingGroups[i].meetingStartTime[j] + ' ' + cont.meetingGroups[i].meetingType[j] + '<br>';
                 }
                 contentHolder = contentHolder + '</p>';
                 contentHolder = contentHolder + '<div class="iw-bottom-gradient"></div>';
