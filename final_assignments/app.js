@@ -21,6 +21,14 @@ var url = 'mongodb://localhost:27017/AAmeetings';
 var index1 = fs.readFileSync("index1.txt");
 var index3 = fs.readFileSync("index3.txt");
 
+function hourPrefixZero(hour) {
+    if (hour < 10) {
+        return "0" + hour + ":00";
+    } else {
+        return hour + ":00";
+    }
+}
+
 app.get('/', function(req, res) {
     // Connect to the AWS RDS Postgres database
     const client = new Pool(db_credentials);
@@ -60,16 +68,8 @@ app.get('/aa', function(req, res) {
         tomorrow = numToDay[tomorrow];
         // ----------------------------------
         var hour = dateTimeNow.getHours();
-        var hourStart;
-        var hourEnd;
-        if (hour > 9) {
-            hourStart = "0" + hour + ":00";
-        } else {
-            hourStart = hour + ":00";
-        }
-        if (hour >= 20) {
-            hourEnd = (hour + 6) % 24;
-        }
+        var hourStart = hourPrefixZero(hour);
+        var hourEnd = hourPrefixZero((hour + 4) % 24);
 
         var collection = db.collection(collName);
         var matchpart1;
