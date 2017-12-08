@@ -96,37 +96,35 @@ app.get('/aa', function(req, res) {
             // match by day and time
             matchpart1,
             
-            // group by meeting group
-            { $group : { 
-                _id : {
+            // group by meeting details
+            { $group: {
+                  _id: {
                     geolocation : "$geolocation",
-                    meetingName : "$meetingName",
+                    meetingName : "$meetingName" ,
                     meetingAddress : "$original_address",
                     meetingDetails : "$details",
                     meetingWheelchair : "$accessible",
-                },
-                meetingDay : { $push : "$meetings.day" },
-                meetingStartTime : { $push : "$meetings.start" }, 
-                meetingType : { $push : "$meetings.type" }
-            }
-            },
-            
-            // group meeting groups by latLong
-            {
-                $group : { _id : { geolocation : "$_id.geolocation"},
-                    meetingGroups : { $push : 
-                        { groupInfo : "$_id", meetingDay : "$meetingsDay", meetingStartTime : "$meetingStartTime", meetingType : "$meetingType" }
-                    }
-                }
-            }
-        
+                  },
+                  meetings: { $push : "$meetings" }
+              }},
+              
+            // group by latlong  
+            { $group: {
+                  _id: { geolocation : "$_id.geolocation" },
+                  meetings: { $push : {
+                    groupInfo : "$_id",
+                    meetingDay : "$meeting.day",
+                    meetingStartTime : "$meetings.start",
+                    meetingType : "$meetings.type"
+                  }}
+              }}
             ]).toArray(function(err, docs) { // end of aggregation pipeline
             if (err) {console.log(err)}
             
             else {
                 res.writeHead(200, {'content-type': 'text/json'});
                 // res.write(index1);
-                res.write(JSON.stringify(docs));
+                res.end(JSON.stringify(docs));
                 // res.end(index3);
             }
             db.close();
