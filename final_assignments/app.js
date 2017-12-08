@@ -87,14 +87,9 @@ app.get('/aa', function(req, res) {
             }
         } else  {
             matchpart1 = { $match :  
-                { $or : [
-                    { $and: [
-                        { "meetings.day" : today } , { "meetings.start" : { $gte: hourStart } }
-                    ]},
-                    { $and: [
-                        { "meetings.day" : today } , { "meetings.end" : { $lte: hourEnd } }
+                { $and: [
+                        { "meetings.day" : today } , { "meetings.start" : { $gte: hourStart } }, { "meetings.start" : { $lte: hourEnd } }
                     ]}
-                ]}
             }
         }
         collection.aggregate([ // start of aggregation pipeline
