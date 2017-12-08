@@ -12,6 +12,7 @@
     "async": "^0.2.10",
     "cheerio": "^1.0.0-rc.2",
     "moment": "^2.18.1",
+    "moment-timezone": "^0.5.14",
     "mongo": "^0.1.0",
     "mongodb": "^2.2.31",
     "qs": "^6.5.1",

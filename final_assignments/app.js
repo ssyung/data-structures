@@ -1,6 +1,7 @@
 var express = require('express'),
     app = express();
 var fs = require('fs');
+var moment = require('moment-timezone'); // npm install moment-timezone
 
 // Postgres
 const { Pool } = require('pg');
@@ -59,20 +60,20 @@ app.get('/aa', function(req, res) {
         var numToDay = [
             'Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'
             ];
-        var dateTimeNow = new Date();
-        var todayNum = dateTimeNow.getDay();
+        var todayNum = moment.tz(new Date(), "America/New_York").days();
         var today = numToDay[todayNum];
         var tomorrow;
         if (todayNum == 6) {tomorrow = 0;}
         else {tomorrow = todayNum + 1}
         tomorrow = numToDay[tomorrow];
         // ----------------------------------
-        var hour = dateTimeNow.getHours();
+        var hour = moment.tz(new Date(), "America/New_York").hours();
         var hourStart = hourPrefixZero(hour);
         var hourEnd = hourPrefixZero((hour + 4) % 24);
 
         var collection = db.collection(collName);
         var matchpart1;
+
         if (hour >= 20) {
             matchpart1 = { $match : 
                 { $or : [
@@ -80,7 +81,7 @@ app.get('/aa', function(req, res) {
                         { "meetings.day" : today } , { "meetings.start" : { $gte: hourStart } }
                     ]},
                     { $and: [
-                        { "meetings.day" : tomorrow } , { "meetings.end" : { $lte: hourEnd } }
+                        { "meetings.day" : tomorrow } , { "meetings.start" : { $lte: hourEnd } }
                     ]}
                 ]}
             }
