@@ -42,7 +42,9 @@ app.get('/', function(req, res) {
              max(temperature) as max_temp, 
              min(temperature) as min_temp
              FROM fridge_readings
-             WHERE photo > 500 AND fridgetime >= DATE '2017-11-12' AND fridgetime <= DATE '2017-11-18'
+             WHERE photo > 500 
+                AND fridgetime >= DATE '2017-11-12' AT TIME ZONE 'America/New_York' 
+                AND fridgetime <  DATE '2017-11-19' AT TIME ZONE 'America/New_York' 
              GROUP BY sensormonth, sensorday, sensorhour;`;
              
     client.connect();
