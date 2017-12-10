@@ -35,15 +35,15 @@ app.get('/', function(req, res) {
     const client = new Pool(db_credentials);
 
     // SQL query
-    var q = `SELECT EXTRACT(DAY FROM fridge_readings AT TIME ZONE 'America/New_York') as sensorday, 
-             EXTRACT(MONTH FROM fridge_readings AT TIME ZONE 'America/New_York') as sensormonth, 
-             count(*) as num_obs, 
-             max(photo) as max_light, 
-             min(photo) as min_light,
-             max(tempC) as max_temp, 
-             min(tempC) as min_temp
-             FROM fridge_phototemp
-             GROUP BY sensormonth, sensorday;`;
+    var q = `SELECT EXTRACT(DAY FROM fridgetime AT TIME ZONE 'America/New_York') as sensorday, 
+             EXTRACT(MONTH FROM fridgetime AT TIME ZONE 'America/New_York') as sensormonth, 
+             EXTRACT(HOUR FROM fridgetime AT TIME ZONE 'America/New_York') as sensorhour, 
+             count(*) as door_open,  
+             max(temperature) as max_temp, 
+             min(temperature) as min_temp
+             FROM fridge_readings
+             WHERE photo > 500 AND fridgetime >= DATE '2017-11-12' AND fridgetime <= DATE '2017-11-18'
+             GROUP BY sensormonth, sensorday, sensorhour;`;
              
     client.connect();
     client.query(q, (qerr, qres) => {
