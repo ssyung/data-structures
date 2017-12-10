@@ -38,13 +38,14 @@ app.get('/', function(req, res) {
     var q = `SELECT EXTRACT(DAY FROM fridgetime AT TIME ZONE 'America/New_York') as sensorday, 
              EXTRACT(MONTH FROM fridgetime AT TIME ZONE 'America/New_York') as sensormonth, 
              EXTRACT(HOUR FROM fridgetime AT TIME ZONE 'America/New_York') as sensorhour, 
+             count(*) as door_open,  
              ROUND(max(temperature * (9.0/5) + 32),1) as max_temp, 
              ROUND(min(temperature * (9.0/5) + 32),1) as min_temp
              FROM fridge_readings
-             WHERE
-                fridgetime >= DATE '2017-11-12' AT TIME ZONE 'America/New_York' 
+             WHERE photo > 500 
+                AND fridgetime >= DATE '2017-11-12' AT TIME ZONE 'America/New_York' 
                 AND fridgetime <  DATE '2017-11-19' AT TIME ZONE 'America/New_York' 
-            GROUP BY sensormonth, sensorday, sensorhour;`;
+             GROUP BY sensormonth, sensorday, sensorhour;`;
              
     client.connect();
     client.query(q, (qerr, qres) => {
