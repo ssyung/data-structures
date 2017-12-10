@@ -39,8 +39,8 @@ app.get('/', function(req, res) {
              EXTRACT(MONTH FROM fridgetime AT TIME ZONE 'America/New_York') as sensormonth, 
              EXTRACT(HOUR FROM fridgetime AT TIME ZONE 'America/New_York') as sensorhour, 
              count(*) as door_open,  
-             max(temperature) as max_temp, 
-             min(temperature) as min_temp
+             ROUND(max(temperature * (9.0/5) + 32),1) as max_temp, 
+             ROUND(min(temperature * (9.0/5) + 32),1) as min_temp
              FROM fridge_readings
              WHERE photo > 500 
                 AND fridgetime >= DATE '2017-11-12' AT TIME ZONE 'America/New_York' 
