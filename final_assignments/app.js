@@ -46,7 +46,7 @@ app.get('/', function(req, res) {
              WHERE photo > 500 
                 AND fridgetime >= DATE '2017-11-12' AT TIME ZONE 'America/New_York' 
                 AND fridgetime <  DATE '2017-11-19' AT TIME ZONE 'America/New_York' 
-             GROUP BY sensormonth, sensorday, sensorhour;`;
+             GROUP BY sensoryear, sensormonth, sensorday, sensorhour;`;
              
     client.connect();
     client.query(q, (qerr, qres) => {
