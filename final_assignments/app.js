@@ -37,6 +37,7 @@ app.get('/', function(req, res) {
     // SQL query
     var q = `SELECT EXTRACT(DAY FROM fridgetime AT TIME ZONE 'America/New_York') as sensorday, 
              EXTRACT(MONTH FROM fridgetime AT TIME ZONE 'America/New_York') as sensormonth, 
+             EXTRACT(YEAR FROM fridgetime AT TIME ZONE 'America/New_York') as sensoryear
              EXTRACT(HOUR FROM fridgetime AT TIME ZONE 'America/New_York') as sensorhour, 
              count(*) as door_open,  
              ROUND(max(temperature * (9.0/5) + 32),1) as max_temp, 
