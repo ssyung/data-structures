@@ -15,8 +15,7 @@ db_credentials.port = 5432;
 // Mongo
 var collName = 'meetings';
 var MongoClient = require('mongodb').MongoClient;
-var url = 'mongodb://localhost:27017/AAmeetings';
-// process.env.ATLAS;
+var url = process.env.ATLAS;
 
 // HTML wrappers for AA data
 var index1 = fs.readFileSync("index1.txt");
