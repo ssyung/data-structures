@@ -41,13 +41,19 @@ function getEntriesData(rawData) {
         // store full address in string, removing parentheses and spaces
         td1.children().remove();
         var origaddr = td1.text().trim();
-        var fulladdr = td1.text().trim().replace(/\(.*?\)/, '').replace(/\s+/g, ' ');
+        var fulladdr = td1.text().trim()
+            .replace(/\(.*?\)/, '') // remove everything inside paren
+            .replace(/\s+/g, ' ')   // replace all consecutive white space and replace with single space
+            .replace(/(\d)-(\d)/, "$1###$2") // temporarily replace dash between two digits with ###
+            .replace("W.", 'West')
+            .replace('&', "and");
         // save part of address before first comma, period or dash
-        var partaddr = fulladdr.split(/[\.,-]/);
+        var partaddr = fulladdr.split(/[\.,-]/); // split address on period, comma or dash
+        partaddr[0] = partaddr[0].replace("###", "-"); // replace ### with -
         addr = addr + partaddr[0];
         // save part of address after last space (zip code)
         var zip = fulladdr.split(" ");
-        addr = addr + " " + zip[zip.length - 1];
+        addr = addr + " NY, NY " + zip[zip.length - 1];
         entry.address = addr;
         entry.original_address = origaddr;
         
@@ -129,7 +135,6 @@ for (const filename of dataFiles) {
 }
 
 
-
 // ============================================================
 
 // eachSeries in the async module iterates over an array and operates on each item in the array in series
@@ -153,12 +158,13 @@ async.eachSeries(allEntriesData, function(entry, callback) {
 
 
     // IN MONGO exists a database `AAmeetings` with a collection `meetings`
-    var dbName = 'AAmeetings'; // name of Mongo database (created in the Mongo shell)
+    var dbName = 'stephanie'; // name of Mongo database (created in the Mongo shell)
     var collName = 'meetings'; // name of Mongo collection (created in the Mongo shell)
     
     // Insert the entriesData array in the Mongo collection
     // Connection URL
-    var url = 'mongodb://' + process.env.IP + ':27017/' + dbName;
+    // var url = 'mongodb://' + process.env.IP + ':27017/' + dbName;
+    var url = 'mongodb://shies425:Dp79iCs4UKt1ufi9@cluster0-shard-00-00-rzdcl.mongodb.net:27017,cluster0-shard-00-01-rzdcl.mongodb.net:27017,cluster0-shard-00-02-rzdcl.mongodb.net:27017/stephanie?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin';
     
     // Retrieve
     var MongoClient = mongodb.MongoClient; 
